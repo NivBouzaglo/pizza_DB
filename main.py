@@ -35,7 +35,7 @@ for order in orders.split('\n'):
     pizza = repo.hats.find_by_topping(topping)
     if pizza is not None:
         repo.hats.set_quantity(pizza)
-        if pizza.quantity == 0:
+        if pizza.quantity-1 == 0:
             repo.hats.remove(pizza)
     else:
         print("This topping is over")
