@@ -1,18 +1,17 @@
 import atexit
 import sqlite3
-import suppliers
+import Suppliers
 import Hats
-
-# The Repository
+import Orders
 
 
 class Repository:
 
-    def __init__(self):
-        self._conn = sqlite3.connect('config.db')
-        self.suppliers = suppliers(self._conn)
-        self.hats = Hats(self._conn)
-        self.orders = orders(self.connOrders);
+    def _init_(self):
+        self._conn = sqlite3.connect('DataBase.db')
+        self.suppliers = _Suppliers(self._conn)
+        self.hats = _Hats(self._conn)
+        self.orders = _Orders(self._conn)
 
     def _close(self):
         self._conn.commit()
@@ -38,6 +37,7 @@ class Repository:
             hat     INTEGER REFERENCES hats(id)
         );
        """)
+
 
 repo = Repository()
 atexit.register(repo.close)

@@ -1,8 +1,9 @@
+# DAO Object
 from DTO import Hat
 
 
 class Hats:
-    def __init__(self, conn):
+    def _init_(self, conn):
         self._conn = conn
 
     def insert(self, hat):

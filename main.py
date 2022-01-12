@@ -1,16 +1,56 @@
 import sys
 from Repository import repo
-from DTO import Hat,Order,Supplier
+import Hats
+from DTO import Hat
+from DTO import Order
+from DTO import Supplier
 
 repo.create_table()
-config_text = open("config.txt" , "r").read()
-numbers_of_hats = int(config_text[0:config_text.find(,)])
-number_of_supplier = int(config_text[',']+1:config_text.find('\n'))
+config_text = open("config.txt", "r+").read()
+numbers_hats = 0
+numbers_suppliers = 0
 counter = 0
-for line in config_text.split('\n')
+for line in config_text.split('\n'):
     split = line.split(',')
-    if counter <= numbers_of_hats:
-        hat =Hat(split[0] , split[1], split[2] , split[3])
+    if counter == 0:
+        numbers_suppliers = split[0]
+        numbers_hats = split[1]
+    elif 0 < counter <= numbers_hats:
+        hat = Hat(split[0], split[1], split[2], split[3])
         repo.hats.insert(hat)
+    else:
+        supplier = Supplier(split[0], split[1])
+        repo.suppliers.insert(supplier)
+    counter += 1
+
+orders = open("orders.txt", "r+").read()
+orderID = 1
+output = ""
+for order in orders.split('\n'):
+    split = order.split(',')
+    location = order[0]
+    topping = order[1]
+    pizza = repo.hats.find_by_topping(topping)
+    if pizza is not None:
+        repo.hats.set_quantity(pizza)
+        if pizza.quantity == 0:
+            repo.hats.remove(pizza)
+    else:
+        print("This topping is over")
+    ord = Order(orderID, location, pizza.id)
+    repo.orders.insert(ord)
+    orderID += 1
+
+    s = repo.suppliers.find(pizza.supplier)
+    output += topping+','+s.name+','+location+'\n'
+
+txt = open("output", "w")
+txt.write(output)
+txt.close()
+
+
+
+
+
 
 

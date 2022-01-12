@@ -1,8 +1,9 @@
+# DAO Object
 from DTO import Order
 
 
 class Orders:
-    def __init__(self, conn):
+    def _init_(self, conn):
         self._conn = conn
 
     def insert(self, order):

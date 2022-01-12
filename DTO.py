@@ -1,5 +1,6 @@
+# DTO Objects
 class Hat:
-    def __init__(self, id, topping, supplier, quantity):
+    def _init_(self, id, topping, supplier, quantity):
         self.id = id
         self.topping = topping
         self.supplier = supplier
@@ -7,13 +8,13 @@ class Hat:
 
 
 class Order:
-    def __init__(self, id, location, hat):
+    def _init_(self, id, location, hat):
         self.id = id
         self.location = location
         self.hat = hat
 
 
 class Supplier:
-    def __init__(self, id, name):
+    def _init_(self, id, name):
         self.id = id
         self.name = name
