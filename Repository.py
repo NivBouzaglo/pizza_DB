@@ -3,12 +3,12 @@ import sqlite3
 import Suppliers
 import Hats
 import Orders
-
+from __main__ import args
 
 class Repository:
 
     def _init_(self):
-        self._conn = sqlite3.connect('DataBase.db')
+        self._conn = sqlite3.connect(sys.argv[3])
         self.suppliers = _Suppliers(self._conn)
         self.hats = _Hats(self._conn)
         self.orders = _Orders(self._conn)
