@@ -5,3 +5,5 @@ class Hat:
         self.supplier = supplier
         self.quantity = quantity
 
+
+

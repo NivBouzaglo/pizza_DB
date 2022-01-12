@@ -1,23 +1,25 @@
 import atexit
 import sqlite3
 import suppliers
-import hats
+import Hats
 
 # The Repository
+
+
 class Repository:
 
     def __init__(self):
         self._conn = sqlite3.connect('config.db')
-        self.suppliers = _suppliers(self._conn)
-        self.hats = _hats(self._conn)
-        self.orders = _orders(self.connOrders);
+        self.suppliers = suppliers(self._conn)
+        self.hats = Hats(self._conn)
+        self.orders = orders(self.connOrders);
 
     def _close(self):
         self._conn.commit()
         self._conn.close()
 
     def create_tables(self):
-        self._conn.execute("""
+        self._conn.executescript("""
         CREATE TABLE hats (
             id      INTEGER         PRIMARY KEY,
             topping  STRING       NOT NULL,
