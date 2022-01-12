@@ -1,4 +1,4 @@
-import Order
+from DTO import Order
 
 
 class Orders:
@@ -10,9 +10,9 @@ class Orders:
                        INSERT INTO orders (id, location, hat) VALUES (?, ?, ?)
                    """, [order.id, order.location, order.hat])
 
-    def find(self, hat_id):
+    def find(self, order_id):
         c = self._conn.cursor()
         c.execute("""
-                    SELECT * FROM hats WHERE id = ?
-                """, [hat_id])
+                    SELECT * FROM orders WHERE id = ?
+                """, [order_id])
         return Order(*c.fetchone())
