@@ -8,7 +8,7 @@ from Orders import Orders
 class Repository:
 
     def __init__(self):
-        self._conn = sqlite3.connect(sys.argv[3])
+        self._conn = sqlite3.connect('database.db')
         self.suppliers = Suppliers(self._conn)
         self.hats = Hats(self._conn)
         self.orders = Orders(self._conn)

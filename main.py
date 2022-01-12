@@ -5,17 +5,18 @@ from DTO import Hat
 from DTO import Order
 from DTO import Supplier
 
+
 repo.create_tables()
-config_text = open(sys.argv[0], "r+").read()
+config_text = open(sys.argv[1], "r+").read()
 numbers_hats = 0
 numbers_suppliers = 0
 counter = 0
 for line in config_text.split('\n'):
     split = line.split(',')
     if counter == 0:
-        numbers_suppliers = split[0]
-        numbers_hats = split[1]
-    elif 0 < counter <= numbers_hats:
+        numbers_suppliers = split[1]
+        numbers_hats = split[0]
+    elif counter < int(numbers_hats) or counter == int(numbers_hats):
         hat = Hat(split[0], split[1], split[2], split[3])
         repo.hats.insert(hat)
     else:
@@ -23,13 +24,13 @@ for line in config_text.split('\n'):
         repo.suppliers.insert(supplier)
     counter += 1
 
-orders = open(sys.argv[1], "r+").read()
+orders = open(sys.argv[2], "r+").read()
 orderID = 1
 output = ""
 for order in orders.split('\n'):
-    split = order.split(',')
-    location = split[0]
-    topping = split[1]
+    orderSplit = order.split(',')
+    location = orderSplit[0]
+    topping = orderSplit[1]
     pizza = repo.hats.find_by_topping(topping)
     if pizza is not None:
         repo.hats.set_quantity(pizza)
@@ -44,6 +45,6 @@ for order in orders.split('\n'):
     s = repo.suppliers.find(pizza.supplier)
     output += topping + ',' + s.name + ',' + location + '\n'
 
-txt = open(sys.argv[2], "w")
+txt = open(sys.argv[3], "w")
 txt.write(output)
 txt.close()
