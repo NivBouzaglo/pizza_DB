@@ -3,7 +3,7 @@ from DTO import Supplier
 
 
 class Suppliers:
-    def _init_(self, conn):
+    def __init__(self, conn):
         self._conn = conn
 
     def insert(self, supplier):

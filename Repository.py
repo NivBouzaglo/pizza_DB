@@ -1,17 +1,17 @@
 import atexit
+import sys
 import sqlite3
-import Suppliers
-import Hats
-import Orders
-from __main__ import args
+from Suppliers import Suppliers
+from Hats import Hats
+from Orders import Orders
 
 class Repository:
 
-    def _init_(self):
+    def __init__(self):
         self._conn = sqlite3.connect(sys.argv[3])
-        self.suppliers = _Suppliers(self._conn)
-        self.hats = _Hats(self._conn)
-        self.orders = _Orders(self._conn)
+        self.suppliers = Suppliers(self._conn)
+        self.hats = Hats(self._conn)
+        self.orders = Orders(self._conn)
 
     def _close(self):
         self._conn.commit()
@@ -40,4 +40,4 @@ class Repository:
 
 
 repo = Repository()
-atexit.register(repo.close)
+atexit.register(repo._close)
