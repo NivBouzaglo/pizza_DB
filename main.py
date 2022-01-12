@@ -9,6 +9,7 @@ from DTO import Supplier
 repo.create_tables()
 config_text = open(sys.argv[1], "r+").read()
 numbers_hats = 0
+list = []
 numbers_suppliers = 0
 counter = 0
 for line in config_text.split('\n'):

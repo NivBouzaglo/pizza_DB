@@ -35,6 +35,7 @@ class Hats:
     def find_by_topping(self, hat_topping):
         c = self._conn.cursor()
         c.execute("""
-                    SELECT * FROM hats WHERE topping = ?
-                """, [hat_topping])
+                            SELECT * FROM hats WHERE topping = ? ORDER BY supplier
+                        """, [hat_topping])
         return Hat(*c.fetchone())
+
