@@ -1,4 +1,4 @@
-import DTO
+import Hat
 
 
 class Hats:
@@ -26,6 +26,6 @@ class Hats:
     def find(self, hat_id):
         c = self._conn.cursor()
         c.execute("""
-                    SELECT id, name FROM hats WHERE id = ?
+                    SELECT * FROM hats WHERE id = ?
                 """, [hat_id])
         return Hat(*c.fetchone())
