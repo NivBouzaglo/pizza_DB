@@ -1,4 +1,4 @@
-import DTO
+from DTO import Hat
 
 
 class Hats:
@@ -10,7 +10,7 @@ class Hats:
                        INSERT INTO hats (id, topping, supplier, quantity ) VALUES (?, ?, ?, ?)
                    """, [hat.id, hat.topping, hat.supplier, hat.quantity])
 
-    def setQauntity(self, hat):
+    def set_quantity(self, hat):
         self._conn.execute("""
                     UPDATE hats
                     SET quantity = quantity-1  
@@ -26,6 +26,14 @@ class Hats:
     def find(self, hat_id):
         c = self._conn.cursor()
         c.execute("""
-                    SELECT id, name FROM hats WHERE id = ?
+                    SELECT * FROM hats WHERE id = ?
                 """, [hat_id])
+        return Hat(*c.fetchone())
+
+
+    def find_by_topping(self, hat_topping):
+        c = self._conn.cursor()
+        c.execute("""
+                    SELECT * FROM hats WHERE hat_topping = ?
+                """, [hat_topping])
         return Hat(*c.fetchone())

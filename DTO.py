@@ -6,4 +6,14 @@ class Hat:
         self.quantity = quantity
 
 
+class Order:
+    def __init__(self, id, location, hat):
+        self.id = id
+        self.location = location
+        self.hat = hat
 
+
+class Supplier:
+    def __init__(self, id, name):
+        self.id = id
+        self.name = name
